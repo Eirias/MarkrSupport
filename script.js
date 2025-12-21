@@ -14,6 +14,7 @@
       f1: "One-tap save of your current location",
       f2: "Lightweight, privacy-first—data stays on device",
       f3: "Widget & Control Center integration",
+      f4: "Share locations with friends and family",
       contact_title: "Contact",
       contact_desc: "Questions or feedback? Reach out anytime.",
       contact_email_label: "Email",
@@ -36,6 +37,7 @@
       f1: "Standort mit einem Tap speichern",
       f2: "Leichtgewichtig & datenschutzfreundlich – Daten bleiben auf dem Gerät",
       f3: "Widget- & Control Center-Integration",
+      f4: "Orte mit Freunden und Familie teilen",
       contact_title: "Kontakt",
       contact_desc: "Fragen oder Feedback? Schreib uns jederzeit.",
       contact_email_label: "E-Mail",
@@ -61,7 +63,6 @@
 
     $('#hero-title').textContent = d.hero_title;
     $('#hero-sub').textContent = d.hero_sub;
-    $('#cta-privacy').textContent = d.hero_cta;
 
     $('#marketing-title').textContent = d.marketing_title;
     $('#marketing-p1').textContent = d.marketing_p1;
@@ -72,6 +73,7 @@
     $('#f1').textContent = d.f1;
     $('#f2').textContent = d.f2;
     $('#f3').textContent = d.f3;
+    $('#f4').textContent = d.f4;
 
     $('#contact-title').textContent = d.contact_title;
     $('#contact-desc').textContent = d.contact_desc;
@@ -83,6 +85,16 @@
     $('#privacy-p3').textContent = d.privacy_p3;
 
     $('#rights').textContent = d.footer_rights;
+
+    // Update App Store badges based on language
+    const badgeLocale = lang === 'de' ? 'de-de' : 'en-us';
+    const badgeUrl = `https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/${badgeLocale}?size=250x83`;
+    const badgeAlt = lang === 'de' ? 'Laden im App Store' : 'Download on the App Store';
+    $$('.app-store-badge img').forEach(img => {
+      img.src = badgeUrl;
+      img.alt = badgeAlt;
+    });
+
     localStorage.setItem('lang', lang);
     langSelect.value = lang;
   }

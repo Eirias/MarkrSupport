@@ -56,6 +56,10 @@ h1{font-size:clamp(28px,4vw,48px);line-height:1.1;margin:0 0 10px}
   background:linear-gradient(135deg,var(--accent),var(--accent-2));
   color:white;text-decoration:none;font-weight:700;box-shadow:0 10px 30px var(--ring)
 }
+.app-store-badge{display:inline-block;transition:opacity .2s,transform .2s}
+.app-store-badge:hover{opacity:.85;transform:scale(1.02)}
+.app-store-badge img{height:44px;width:auto;display:block}
+.app-store-badge-small img{height:36px}
 /*.hero img{width:100%;border-radius:20px;border:1px solid color-mix(in oklab, var(--fg) 8%, transparent);box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}*/
 .section{margin:36px 0}
 .cards{display:grid;grid-template-columns:1fr;gap:16px}
@@ -67,6 +71,8 @@ h1{font-size:clamp(28px,4vw,48px);line-height:1.1;margin:0 0 10px}
 }
 .card img{width:100%;border-radius:14px;margin-top:8px}
 footer{padding:28px 0 60px;color:var(--muted);font-size:14px}
+.footer-content{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
+.footer-content p{margin:0}
 .kbd{
   padding:2px 8px;border-radius:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);
   font-variant-numeric: tabular-nums; font-feature-settings:"tnum";
