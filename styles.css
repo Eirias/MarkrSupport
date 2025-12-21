@@ -19,7 +19,7 @@
     --ring: rgba(16,185,129,.25);
   }
 }
-*{box-sizing:border-box}
+*,*::before,*::after{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0; font:16px/1.55 ui-sans-serif,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
@@ -34,7 +34,9 @@ a{color:inherit}
 header{
   position:sticky;top:0;z-index:100;
   backdrop-filter:saturate(160%) blur(10px);
+  -webkit-backdrop-filter:saturate(160%) blur(10px);
   background: linear-gradient(to bottom, rgba(0,0,0,.35), transparent);
+  will-change:transform;
 }
 .nav{display:flex;align-items:center;justify-content:space-between;padding:14px 0}
 .brand{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--fg)}
@@ -56,9 +58,10 @@ h1{font-size:clamp(28px,4vw,48px);line-height:1.1;margin:0 0 10px}
   background:linear-gradient(135deg,var(--accent),var(--accent-2));
   color:white;text-decoration:none;font-weight:700;box-shadow:0 10px 30px var(--ring)
 }
-.app-store-badge{display:inline-block;transition:opacity .2s,transform .2s}
+.app-store-badge{display:inline-block;transition:opacity .2s ease-out,transform .2s ease-out;will-change:opacity,transform}
 .app-store-badge:hover{opacity:.85;transform:scale(1.02)}
 .app-store-badge img{height:44px;width:auto;display:block}
+@media(prefers-reduced-motion:reduce){.app-store-badge{transition:none}}
 .app-store-badge-small img{height:36px}
 /*.hero img{width:100%;border-radius:20px;border:1px solid color-mix(in oklab, var(--fg) 8%, transparent);box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}*/
 .section{margin:36px 0}
@@ -69,7 +72,7 @@ h1{font-size:clamp(28px,4vw,48px);line-height:1.1;margin:0 0 10px}
   border:1px solid color-mix(in oklab, var(--fg) 8%, transparent);
   border-radius:18px; padding:18px; box-shadow: 0 10px 30px -12px rgba(0,0,0,.5);
 }
-.card img{width:100%;border-radius:14px;margin-top:8px}
+.card img{width:100%;height:auto;border-radius:14px;margin-top:8px;content-visibility:auto}
 footer{padding:28px 0 60px;color:var(--muted);font-size:14px}
 .footer-content{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center}
 .footer-content p{margin:0}

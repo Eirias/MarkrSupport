@@ -5,7 +5,6 @@
       nav: {home: "Home", privacy:"Privacy Policy", contact:"Contact"},
       hero_title: "Markr - Save places with a single tap.",
       hero_sub: "Markr is the fast on-the-go location list—no account, no cloud. Save your current position in an instant and organize your places effortlessly.",
-      hero_cta: "View Privacy",
       marketing_title: "Why Markr?",
       marketing_p1: "Markr provides a frictionless way to capture locations in the moment—no sign-up, no cloud dependency, and no distractions.",
       marketing_p2: "Whether you are driving, traveling, or just exploring, Markr lets you save your current spot with a single tap.",
@@ -28,7 +27,6 @@
       nav: {home: "Start", privacy:"Datenschutz", contact:"Kontakt"},
       hero_title: "Markr - Orte mit einem Tap speichern.",
       hero_sub: "Markr ist die schnelle Location-Merkliste für unterwegs – ohne Konto, ohne Cloud. Speichere deine aktuelle Position im Handumdrehen und verwalte Orte mühelos.",
-      hero_cta: "Datenschutz ansehen",
       marketing_title: "Warum Markr?",
       marketing_p1: "Markr ermöglicht es dir, Orte ohne Reibung zu erfassen – ohne Registrierung, ohne Cloud-Zwang und ohne Ablenkung.",
       marketing_p2: "Beim Fahren, Reisen oder Entdecken: Markr speichert deinen Standort mit einem einzigen Tap.",
@@ -105,18 +103,31 @@
     setLang(saved || inferred);
   }
 
-  // Smooth scroll and active nav
+  // Smooth scroll and active nav with throttling
+  const sections = [];
+  const navLinks = [];
+  let ticking = false;
+
   function onScroll(){
-    const sections = $$('section[id]');
-    let cur = sections[0].id;
-    const fromTop = window.scrollY + 120;
-    sections.forEach(sec => {
-      if(sec.offsetTop <= fromTop) cur = sec.id;
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      let cur = sections[0]?.id;
+      const fromTop = window.scrollY + 120;
+      for(const sec of sections){
+        if(sec.offsetTop <= fromTop) cur = sec.id;
+      }
+      const activeHref = '#' + cur;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeHref));
+      ticking = false;
     });
-    $$('.nav a').forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + cur));
   }
 
   function init(){
+    // Cache DOM queries
+    sections.push(...$$('section[id]'));
+    navLinks.push(...$$('.nav a'));
+    
     initLang();
     yearEl.textContent = new Date().getFullYear();
     langSelect.addEventListener('change', e => setLang(e.target.value));
